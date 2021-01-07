@@ -7,6 +7,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 #sign in to the app
 #args: username(string)- must be not already in use.
 #      password(int)
+@app.route("/")
 @app.route("/signin", methods=['GET', 'POST'])
 def signin():
     if current_user.is_authenticated:
@@ -14,16 +15,18 @@ def signin():
     args = request.args
     password = args.get("password")
     username = args.get("username")
-
-    hashed_password = bcrypt.generate_password_hash(password).decode('utf8')
-    user = User(username=username, password=hashed_password)
-    user_check = User.query.filter_by(username=username).first()
-    if user_check:
-        return "Existing username, please choose a different one."
-    else:
-        db.session.add(user)
-        db.session.commit()
-        return "Success sign in!"
+    try:
+        hashed_password = bcrypt.generate_password_hash(password).decode('utf8')
+        user = User(username=username, password=hashed_password)
+        user_check = User.query.filter_by(username=username).first()
+        if user_check:
+            return "Existing username, please choose a different one."
+        else:
+            db.session.add(user)
+            db.session.commit()
+            return "Success sign in!"
+    except:
+        return "Please sign in"
 
 #log in to the app
 #args: username(string)- must be existing user
