@@ -1,0 +1,11 @@
+bcrypt==3.2.0
+Flask==1.0.2
+Flask-Bcrypt==0.7.1
+Flask-Cors==3.0.6
+Flask-Login==0.5.0
+Flask-Mail==0.9.1
+Flask-SQLAlchemy==2.4.4
+Flask-WTF==0.14.3
+requests==2.19.1
+SQLAlchemy==1.2.11
+
